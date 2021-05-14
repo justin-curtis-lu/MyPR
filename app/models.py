@@ -1,5 +1,7 @@
 from app import db
 from datetime import datetime
+# Import werkzeug hashing for password security
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # User model
 class User(db.Model):
@@ -13,6 +15,14 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+    # User set password
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    # User check password
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 # Post model
 class Post(db.Model):
