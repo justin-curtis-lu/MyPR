@@ -1,5 +1,6 @@
 When allowing users to upload content, going to need to use WTForms with file uploading
 Need to make sure uploads are validated -> expected size, and valid file format
+Consider S3 Bucket for file storing
 
 Change from SQLalchemy to server side Db for production
 
