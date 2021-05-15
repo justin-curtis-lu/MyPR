@@ -7,6 +7,7 @@ import logging
 from logging.handlers import SMTPHandler
 from logging.handlers import RotatingFileHandler
 import os
+from flask_mail import Mail
 
 # App instance
 app = Flask(__name__)
@@ -15,6 +16,8 @@ app = Flask(__name__)
 
 # Read in config values
 app.config.from_object(Config)
+
+mail = Mail(app)
 # Read in Db
 db = SQLAlchemy(app)
 # Migration Engine

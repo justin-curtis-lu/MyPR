@@ -5,3 +5,6 @@ Consider S3 Bucket for file storing
 Change from SQLalchemy to server side Db for production
 
 Bootstrap for CSS styling
+
+
+Create email account for password resetting
