@@ -8,3 +8,6 @@ Bootstrap for CSS styling
 
 
 Create email account for password resetting
+
+
+Reading images from filesystem, for deployment read from S3 bucket

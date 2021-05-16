@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -8,16 +8,29 @@ from logging.handlers import SMTPHandler
 from logging.handlers import RotatingFileHandler
 import os
 from flask_mail import Mail
+from flask_bootstrap import Bootstrap
+from flask_moment import Moment
+from flask_babel import Babel
+from flask import request
+from flask import Flask
+from flask_wtf.csrf import CSRFProtect
+
+csrf = CSRFProtect()
 
 # App instance
 app = Flask(__name__)
 
-# FLASK EXTENSIONS
-
 # Read in config values
 app.config.from_object(Config)
 
+csrf.init_app(app)
+
+#babel = Babel(app)
+bootstrap = Bootstrap(app)
+# FLASK EXTENSIONS
+
 mail = Mail(app)
+moment = Moment(app)
 # Read in Db
 db = SQLAlchemy(app)
 # Migration Engine
@@ -55,3 +68,4 @@ if not app.debug:
         app.logger.info('Microblog startup')
 
 from app import routes, models, errors
+

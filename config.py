@@ -1,5 +1,7 @@
 import os
+
 basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dn32918hdnewqQDQd2qdeqx'
@@ -15,4 +17,12 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['juclu@ucdavis.edu']
 
-    POSTS_PER_PAGE = 3
+    POSTS_PER_PAGE = 5
+    # LANGUAGES = ['en', 'es']
+    # MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+
+    # TEMP DO NOT COMMIT AND SWITCH TO ENVIORNMENT VARIABLES FOR DEPLOYMENT
+    # S3_BUCKET = 'mypr-images'
+    # S3_KEY = ''
+    # S3_SECRET = ''
+    # S3_LOCATION = 'http://{}.s3.amazonaws.com/'.format(S3_BUCKET)

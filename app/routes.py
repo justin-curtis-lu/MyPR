@@ -1,7 +1,9 @@
 from flask import render_template
+from werkzeug.utils import secure_filename
+
 from app import app
 from app.forms import LoginForm
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user
 from flask_login import logout_user
 from flask_login import login_required
@@ -21,6 +23,58 @@ from app.forms import ResetPasswordRequestForm
 from app.email import send_password_reset_email
 
 from app.forms import ResetPasswordForm
+# from werkzeug.security import secure_filename
+import os
+from flask import send_from_directory
+import boto3, botocore
+
+# s3 = boto3.client(
+#    "s3",
+#    aws_access_key_id=app.config['S3_KEY'],
+#    aws_secret_access_key=app.config['S3_SECRET']
+# )
+
+# def upload_file_to_s3(file, bucket_name, acl="public-read"):
+#
+#     try:
+#
+#         s3.upload_fileobj(
+#             file,
+#             bucket_name,
+#             file.filename,
+#             ExtraArgs={
+#                 "ACL": acl,
+#                 "ContentType": file.content_type
+#             }
+#         )
+#
+#     except Exception as e:
+#         # This is a catch all exception, edit this part to fit your needs.
+#         print("Something Happened: ", e)
+#         return e
+#     return "{}{}".format(app.config["S3_LOCATION"], file.filename)
+
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+# @app.route('/upload_test', methods=['GET', 'POST'])
+# def upload_files():
+#     if "user_file" not in request.files:
+#         return "No user_file key in request.files"
+#     # B
+#     file = request.files["user_file"]
+#     # C.
+#     if file.filename == "":
+#         return "Please select a file"
+#     if file:
+#         file.filename = secure_filename(file.filename)
+#         output = upload_file_to_s3(file, app.config["S3_BUCKET"])
+#         return str(output)
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -28,11 +82,22 @@ from app.forms import ResetPasswordForm
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, author=current_user)
+        # d = form.document.data
+        # docname = secure_filename(d.filename)
+        # path = os.path.join(
+        #     os.path.dirname(app.instance_path), docname
+        # )
+        # # os.path.join(assets_dir, 'profile', docname)
+        # s3path = upload_file_to_s3(path, app.config['S3_BUCKET'])
+        # print(s3path)
+        post = Post(body=form.post.data,  author=current_user)
+        # print(post.img)
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('index'))
+
+
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
         page, app.config['POSTS_PER_PAGE'], False)
@@ -43,6 +108,11 @@ def index():
     return render_template('index.html', title='Home', form=form,
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    return render_template('contact.html', title='Contact Us')
 
 # Login
 @app.route('/login', methods=['GET', 'POST'])
