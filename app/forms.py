@@ -54,10 +54,12 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError('Please use a different username.')
 
 class PostForm(FlaskForm):
-    post = TextAreaField('Say something', validators=[
+    title = TextAreaField('Title', validators=[
+        DataRequired(), Length(min=1, max=20)])
+    post = TextAreaField('Description', validators=[
         DataRequired(), Length(min=1, max=140)])
     # document = FileField('Profile', validators=[DataRequired(), FileAllowed(['jpg', 'png'], 'Images only!')])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Publish')
 
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

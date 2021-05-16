@@ -90,7 +90,7 @@ def index():
         # # os.path.join(assets_dir, 'profile', docname)
         # s3path = upload_file_to_s3(path, app.config['S3_BUCKET'])
         # print(s3path)
-        post = Post(body=form.post.data,  author=current_user)
+        post = Post(body=form.post.data, title=form.title.data, author=current_user)
         # print(post.img)
         db.session.add(post)
         db.session.commit()
