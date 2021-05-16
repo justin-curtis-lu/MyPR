@@ -10,68 +10,86 @@ import os
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
-from flask_babel import Babel
 from flask import request
 from flask import Flask
 from flask_wtf.csrf import CSRFProtect
 
+
+db = SQLAlchemy()
 csrf = CSRFProtect()
+migrate = Migrate()
+login = LoginManager()
+login.login_view = 'auth.login'
+login.login_message = ('Please log in to access this page.')
+mail = Mail()
+bootstrap = Bootstrap()
+moment = Moment()
 
-# App instance
-app = Flask(__name__)
+def create_app(config_class=Config):
+    # App instance
+    app = Flask(__name__)
+    # Read in config values
+    app.config.from_object(Config)
+    # Extensions
+    csrf.init_app(app)
+    bootstrap.init_app(app)
+    mail.init_app(app)
+    moment.init_app(app)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login.init_app(app)
 
-# Read in config values
-app.config.from_object(Config)
 
-csrf.init_app(app)
+    from app.errors import bp as errors_bp
 
-#babel = Babel(app)
-bootstrap = Bootstrap(app)
-# FLASK EXTENSIONS
+    app.register_blueprint(errors_bp)
 
-mail = Mail(app)
-moment = Moment(app)
-# Read in Db
-db = SQLAlchemy(app)
-# Migration Engine
-migrate = Migrate(app, db)
-# Login handling
-login = LoginManager(app)
-login.login_view = 'login'
+    from app.auth import bp as auth_bp
 
-if not app.debug:
-    if app.config['MAIL_SERVER']:
-        auth = None
-        if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
-            auth = (app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'])
-        secure = None
-        if app.config['MAIL_USE_TLS']:
-            secure = ()
-        mail_handler = SMTPHandler(
-            mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
-            fromaddr='no-reply@' + app.config['MAIL_SERVER'],
-            toaddrs=app.config['ADMINS'], subject='Microblog Failure',
-            credentials=auth, secure=secure)
-        mail_handler.setLevel(logging.ERROR)
-        app.logger.addHandler(mail_handler)
+    app.register_blueprint(auth_bp, url_prefix='/auth')
 
-        if not os.path.exists('logs'):
-            os.mkdir('logs')
-        file_handler = RotatingFileHandler('logs/microblog.log', maxBytes=10240,
-                                           backupCount=10)
-        file_handler.setFormatter(logging.Formatter(
-            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
-        file_handler.setLevel(logging.INFO)
-        app.logger.addHandler(file_handler)
+    from app.main import bp as main_bp
 
-        app.logger.setLevel(logging.INFO)
-        app.logger.info('Microblog startup')
+    app.register_blueprint(main_bp)
 
-from app import routes, models, errors
+    # Allow for database column dropping
+    with app.app_context():
+        if db.engine.url.drivername == 'sqlite':
+            migrate.init_app(app, db, render_as_batch=True)
+        else:
+            migrate.init_app(app, db)
 
-# Allow for database column dropping
-with app.app_context():
-    if db.engine.url.drivername == 'sqlite':
-        migrate.init_app(app, db, render_as_batch=True)
-    else:
-        migrate.init_app(app, db)
+    if not app.debug:
+        if app.config['MAIL_SERVER']:
+            auth = None
+            if app.config['MAIL_USERNAME'] or app.config['MAIL_PASSWORD']:
+                auth = (app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'])
+            secure = None
+            if app.config['MAIL_USE_TLS']:
+                secure = ()
+            mail_handler = SMTPHandler(
+                mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
+                fromaddr='no-reply@' + app.config['MAIL_SERVER'],
+                toaddrs=app.config['ADMINS'], subject='MyPR Failure',
+                credentials=auth, secure=secure)
+            mail_handler.setLevel(logging.ERROR)
+            app.logger.addHandler(mail_handler)
+
+            if not os.path.exists('logs'):
+                os.mkdir('logs')
+            file_handler = RotatingFileHandler('logs/MyPR.log', maxBytes=10240,
+                                               backupCount=10)
+            file_handler.setFormatter(logging.Formatter(
+                '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+            file_handler.setLevel(logging.INFO)
+            app.logger.addHandler(file_handler)
+
+            app.logger.setLevel(logging.INFO)
+            app.logger.info('MyPR startup')
+
+        return app
+
+
+from app import models
+
+
