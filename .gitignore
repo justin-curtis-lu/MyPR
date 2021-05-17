@@ -10,7 +10,7 @@ __pycache__/
 .env
 
 # Logging
-logs
+logs/
 
 # Distribution / packaging
 .Python

@@ -1,4 +1,3 @@
-{% extends 'bootstrap/base.html' %}
 
 {% block title %}
     {% if title %}
@@ -7,6 +6,10 @@
             Welcome to MyPR
     {% endif %}
 {% endblock %}
+
+
+<link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+
 
 {% block navbar %}
     <nav class="navbar navbar-default">
@@ -24,7 +27,30 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('main.index') }}">Home</a></li>
                     <li><a href="{{ url_for('main.explore') }}">Explore</a></li>
-                    <li><a href="{{ url_for('main.contact') }}">Contact Us</a></li>
+<!--                    <li><a href="{{ url_for('main.contact') }}">Contact Us</a></li>-->
+                    <li>
+                        <div class="popup" onclick="myFunction()">Contact Us!
+                            <span class="popuptext" id="myPopup">
+<!--                                <a href="{{ url_for('main.contact') }}">Contact Us</a>-->
+                                <div id="contact-form">
+                                    <form target="_blank" method="POST" action=https://formspree.io/f/xleajnyk>
+                                        <div class="row">
+                                            <input type="hidden" name="_subject" value="Contact request from personal website" />
+                                            <input type="email" name="_replyto" placeholder="Your email" required>
+                                        </div>
+
+                                        <div class="row">
+                                            <textarea name="message" placeholder="Your message" required></textarea>
+                                         </div>
+
+                                        <div class="row">
+                                            <button type="submit">Send</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </span>
+                        </div>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
@@ -55,10 +81,9 @@
     </div>
 {% endblock %}
 
-{% block scripts %}
-    {{ super() }}
-    {{ moment.include_moment() }}
-{% endblock %}
+
+<script src="{{url_for('static', filename='css/function.js')}}"></script>
+
 
 
 
