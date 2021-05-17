@@ -13,3 +13,4 @@ Create email account for password resetting
 Reading images from filesystem, for deployment read from S3 bucket
 
 Please log in to access this page rendering incorrectly -> consider having contact as a pop up using js
+
