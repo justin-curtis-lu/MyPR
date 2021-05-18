@@ -1,0 +1,35 @@
+<table class="table table-hover">
+        <tr>
+            <td width="70px">
+                <a href="{{ url_for('main.user', username=post.author.username) }}">
+                    <img src="{{ post.author.avatar(70) }}" />
+                </a>
+            </td>
+            <td>
+                <a href="{{ url_for('main.user', username=post.author.username) }}">
+                    {{ post.author.username }}
+                </a>
+                posted: <h1> {{ post.title}} </h1>
+                <br>
+                <div class="container">
+                    <div class="row special">
+                        <div class="col-sm">
+                            {{ post.body }}
+                        </div>
+                        <div class="col-sm">
+
+<!--                Case 1: No File provided for post-->
+                {% if post.img == "None" %}
+<!--                Case 2: Png or Jpg provided for post-->
+                {% elif post.img[-3:] == "jpg" or post.img[-3:] == "png" %}
+                    <img src="../static/{{ post.img }}" alt="User's Image" width="400" height="400">
+<!--                Case 3: Video provided for post-->
+                {% else %}
+                    <video width="400" height="400" controls autoplay>
+                            <source src="../static/{{ post.img }}" type="video/mp4" alt="User's Video">
+                    </video>
+                {% endif %}
+                    </div>
+            </td>
+        </tr>
+</table>

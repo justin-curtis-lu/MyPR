@@ -24,4 +24,4 @@ secure hashing of img name
 rely less on dependency of wtforms
 
 
-user images dont show for user html but show for index html
+user images dont show for user html but show for index html -> connectiom for dbs

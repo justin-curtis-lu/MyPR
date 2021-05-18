@@ -79,6 +79,10 @@ def user(username):
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
         page, current_app.config['POSTS_PER_PAGE'], False)
+    for post in user.posts:
+        print(post.img)
+        print(post.title)
+        print(post.body)
     next_url = url_for('main.user', username=user.username,
                        page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.user', username=user.username,
