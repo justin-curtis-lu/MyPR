@@ -22,19 +22,29 @@ def favicon():
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        assets_dir = os.path.join(
-            os.path.dirname(current_app.instance_path), 'app', 'static'
-        )
-        d = form.image.data
-        docname = secure_filename(d.filename)
-        # print(docname)
-        # print(assets_dir)
-        d.save(os.path.join(assets_dir, docname))
-        post = Post(body=form.post.data, img=docname, title=form.title.data, author=current_user)
-        db.session.add(post)
-        db.session.commit()
-        flash('Your post is now live!')
-        return redirect(url_for('main.index'))
+        print(form.image.data)
+        if form.image.data == None:
+            print(" Didnt get an image ")
+            post = Post(body=form.post.data, img="None", title=form.title.data, author=current_user)
+            db.session.add(post)
+            db.session.commit()
+            flash('Your post is now live!')
+            return redirect(url_for('main.index'))
+        else:
+            print("Got an image")
+            assets_dir = os.path.join(
+                os.path.dirname(current_app.instance_path), 'app', 'static'
+            )
+            d = form.image.data
+            docname = secure_filename(d.filename)
+            # print(docname)
+            # print(assets_dir)
+            d.save(os.path.join(assets_dir, docname))
+            post = Post(body=form.post.data, img=docname, title=form.title.data, author=current_user)
+            db.session.add(post)
+            db.session.commit()
+            flash('Your post is now live!')
+            return redirect(url_for('main.index'))
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
         page, current_app.config['POSTS_PER_PAGE'], False)

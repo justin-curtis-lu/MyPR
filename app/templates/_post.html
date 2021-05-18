@@ -13,10 +13,17 @@
                 <br>
                     {{ post.body }}
                 <br>
-                 <img src="static\{{ post.img }}" alt="User's Image" width="300" height="300">
-                <video width="500" height="700" controls autoplay>
-                        <source src="static\{{ post.img }}" type="video/mp4">
-                </video>
+<!--                Case 1: No File provided for post-->
+                {% if post.img == "None" %}
+<!--                Case 2: Png or Jpg provided for post-->
+                {% elif post.img[-3:] == "jpg" or post.img[-3:] == "png" %}
+                    <img src="static\{{ post.img }}" alt="User's Image" width="500" height="650">
+<!--                Case 3: Video provided for post-->
+                {% else %}
+                    <video width="500" height="650" controls autoplay>
+                            <source src="static\{{ post.img }}" type="video/mp4" alt="User's Video">
+                    </video>
+                {% endif %}
             </td>
         </tr>
 </table>

@@ -34,5 +34,5 @@ class PostForm(FlaskForm):
         DataRequired(), Length(min=1, max=20)])
     post = TextAreaField('Description', validators=[
         DataRequired(), Length(min=1, max=140)])
-    image = FileField('Image', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'mp4', 'mov', 'MOV'], 'Images or Videos only!')])
+    image = FileField('Image', validators=[FileAllowed(['jpg', 'png', 'mp4', 'mov', 'MOV'], 'Images or Videos only!')])
     submit = SubmitField('Publish')
