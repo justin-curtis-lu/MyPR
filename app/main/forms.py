@@ -2,7 +2,14 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, Length
 from app.models import User
+from markupsafe import Markup
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 
+
+# def get_random_string(length):
+#     # Random string with the combination of lower and upper case
+#     letters = string.ascii_letters
+#     return ''.join(random.choice(letters) for i in range(length))
 
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
@@ -21,9 +28,11 @@ class EditProfileForm(FlaskForm):
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
                 raise ValidationError('Please use a different username.')
+
 class PostForm(FlaskForm):
     title = TextAreaField('Title', validators=[
         DataRequired(), Length(min=1, max=20)])
     post = TextAreaField('Description', validators=[
         DataRequired(), Length(min=1, max=140)])
+    image = FileField('Image', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'mp4', 'mov', 'MOV'], 'Images or Videos only!')])
     submit = SubmitField('Publish')

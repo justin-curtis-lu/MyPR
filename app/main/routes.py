@@ -2,6 +2,8 @@ from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, g, \
     jsonify, current_app
 from flask_login import current_user, login_required
+from werkzeug.utils import secure_filename
+
 from app import db
 from app.main.forms import EditProfileForm, EmptyForm, PostForm
 from app.models import User, Post
@@ -20,7 +22,15 @@ def favicon():
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, title=form.title.data, author=current_user)
+        assets_dir = os.path.join(
+            os.path.dirname(current_app.instance_path), 'app', 'static'
+        )
+        d = form.image.data
+        docname = secure_filename(d.filename)
+        # print(docname)
+        # print(assets_dir)
+        d.save(os.path.join(assets_dir, docname))
+        post = Post(body=form.post.data, img=docname, title=form.title.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')

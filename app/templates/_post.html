@@ -12,6 +12,11 @@
                 posted: {{ post.title}}
                 <br>
                     {{ post.body }}
+                <br>
+                 <img src="static\{{ post.img }}" alt="User's Image" width="300" height="300">
+                <video width="500" height="700" controls autoplay>
+                        <source src="static\{{ post.img }}" type="video/mp4">
+                </video>
             </td>
         </tr>
 </table>

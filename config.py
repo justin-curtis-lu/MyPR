@@ -20,11 +20,5 @@ class Config(object):
     ADMINS = ['juclu@ucdavis.edu']
 
     POSTS_PER_PAGE = 5
-    # LANGUAGES = ['en', 'es']
-    # MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+    MAX_CONTENT_LENGTH = 20 * 1024 * 1024
 
-    # TEMP DO NOT COMMIT AND SWITCH TO ENVIORNMENT VARIABLES FOR DEPLOYMENT
-    # S3_BUCKET = 'mypr-images'
-    # S3_KEY = ''
-    # S3_SECRET = ''
-    # S3_LOCATION = 'http://{}.s3.amazonaws.com/'.format(S3_BUCKET)

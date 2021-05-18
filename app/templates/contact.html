@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
 
 {% block app_content %}
@@ -8,12 +7,12 @@
     <div id="contact-form">
         <form target="_blank" method="POST" action=https://formspree.io/f/xleajnyk>
             <div class="row">
-                <input type="hidden" name="_subject" value="Contact request from personal website" />
-                <input type="email" name="_replyto" placeholder="Your email" required>
+                <input type="hidden" name="_subject"  value="Contact request from personal website" />
+                <input type="email" name="_replyto" class="form-control" placeholder="Your email" required>
             </div>
 
             <div class="row">
-                <textarea name="message" placeholder="Your message" required></textarea>
+                <textarea name="message" class="form-control" placeholder="Your message" required></textarea>
              </div>
 
             <div class="row">
