@@ -14,7 +14,8 @@ Reading images from filesystem, for deployment read from S3 bucket
 
 Please log in to access this page rendering incorrectly -> consider having contact as a pop up using js
 
-functionality for displaying all followers
+functionality for displaying all followers -> probably have to use pagination if want to consider
+either a modal or new html page that just list clickable links to all users
 
 multiple images, videos, gifs
 
