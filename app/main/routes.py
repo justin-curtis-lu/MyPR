@@ -1,6 +1,6 @@
 from datetime import datetime
-from flask import render_template, flash, redirect, url_for, request, g, \
-    jsonify, current_app
+from flask import Flask, render_template, flash, redirect, url_for, request, g, \
+    jsonify, current_app, send_file
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
 
@@ -10,6 +10,83 @@ from app.models import User, Post
 from app.main import bp
 from flask import send_from_directory
 import os
+
+
+
+import boto3, botocore
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
+
+s3 = boto3.client(
+    "s3",
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
+)
+
+
+def upload_file_to_s3(file, acl="public-read"):
+    filename = secure_filename(file.filename)
+    try:
+        s3.upload_fileobj(
+            file,
+            os.getenv("AWS_BUCKET_NAME"),
+            file.filename,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+            }
+        )
+
+    except Exception as e:
+        # This is a catch all exception, edit this part to fit your needs.
+        print("Something Happened: ", e)
+        return e
+
+    # after upload file to s3 bucket, return filename of the uploaded file
+    return file.filename
+
+
+@bp.route("/trigger", methods=["POST"])
+def create():
+    # check whether an input field with name 'user_file' exist
+    if 'user_file' not in request.files:
+        flash('No user_file key in request.files')
+        return redirect(url_for('new'))
+
+    # after confirm 'user_file' exist, get the file from input
+    file = request.files['user_file']
+
+    # check whether a file is selected
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(url_for('new'))
+
+    # check whether the file extension is allowed (eg. png,jpeg,jpg,gif)
+    if file and allowed_file(file.filename):
+        output = upload_file_to_s3(file)
+
+        # if upload success,will return file name of uploaded file
+        if output:
+            # write your code here
+            # to save the file name in database
+
+            flash("Success upload")
+            print(output)
+            return redirect(url_for('main.index'))
+
+        # upload failed, redirect to upload page
+        else:
+            flash("Unable to upload, try again")
+            return redirect(url_for('new'))
+
+    # if file extension not allowed
+    else:
+        flash("File type not accepted,please try again.")
+        return redirect(url_for('new'))
+
+
 
 @bp.route('/favicon.ico')
 def favicon():

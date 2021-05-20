@@ -18,7 +18,6 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['juclu@ucdavis.edu']
-
+    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
     POSTS_PER_PAGE = 5
     MAX_CONTENT_LENGTH = 20 * 1024 * 1024
-
