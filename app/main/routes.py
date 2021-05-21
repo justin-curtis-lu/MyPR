@@ -48,43 +48,47 @@ def upload_file_to_s3(file, acl="public-read"):
     return file.filename
 
 
-@bp.route("/trigger", methods=["POST"])
-def create():
-    # check whether an input field with name 'user_file' exist
-    if 'user_file' not in request.files:
-        flash('No user_file key in request.files')
-        return redirect(url_for('new'))
-
-    # after confirm 'user_file' exist, get the file from input
-    file = request.files['user_file']
-
-    # check whether a file is selected
-    if file.filename == '':
-        flash('No selected file')
-        return redirect(url_for('new'))
-
-    # check whether the file extension is allowed (eg. png,jpeg,jpg,gif)
-    if file and allowed_file(file.filename):
-        output = upload_file_to_s3(file)
-
-        # if upload success,will return file name of uploaded file
-        if output:
-            # write your code here
-            # to save the file name in database
-
-            flash("Success upload")
-            print(output)
-            return redirect(url_for('main.index'))
-
-        # upload failed, redirect to upload page
-        else:
-            flash("Unable to upload, try again")
-            return redirect(url_for('new'))
-
-    # if file extension not allowed
-    else:
-        flash("File type not accepted,please try again.")
-        return redirect(url_for('new'))
+# @bp.route("/trigger", methods=["POST"])
+# def create():
+#     # check whether an input field with name 'user_file' exist
+#     if 'user_file' not in request.files:
+#         flash('No user_file key in request.files')
+#         return redirect(url_for('new'))
+#
+#     # after confirm 'user_file' exist, get the file from input
+#     file = request.files['user_file']
+#     print("this is non form way")
+#     print(file)
+#     print(type(file))
+#
+#
+#     # check whether a file is selected
+#     if file.filename == '':
+#         flash('No selected file')
+#         return redirect(url_for('new'))
+#
+#     # check whether the file extension is allowed (eg. png,jpeg,jpg,gif)
+#     if file and allowed_file(file.filename):
+#         output = upload_file_to_s3(file)
+#
+#         # if upload success,will return file name of uploaded file
+#         if output:
+#             # write your code here
+#             # to save the file name in database
+#
+#             flash("Success upload")
+#             print(output)
+#             return redirect(url_for('main.index'))
+#
+#         # upload failed, redirect to upload page
+#         else:
+#             flash("Unable to upload, try again")
+#             return redirect(url_for('new'))
+#
+#     # if file extension not allowed
+#     else:
+#         flash("File type not accepted,please try again.")
+#         return redirect(url_for('new'))
 
 
 
@@ -99,25 +103,23 @@ def favicon():
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        print(form.image.data)
+        # print("this is the form way")
+        # print(form.image.data)
+        # print(type(form.image.data))
         if form.image.data == None:
-            print(" Didnt get an image ")
+            # print(" Didnt get an image")
             post = Post(body=form.post.data, img="None", title=form.title.data, author=current_user)
             db.session.add(post)
             db.session.commit()
             flash('Your post is now live!')
             return redirect(url_for('main.index'))
         else:
-            print("Got an image")
-            assets_dir = os.path.join(
-                os.path.dirname(current_app.instance_path), 'app', 'static'
-            )
-            d = form.image.data
-            docname = secure_filename(d.filename)
-            # print(docname)
-            # print(assets_dir)
-            d.save(os.path.join(assets_dir, docname))
-            post = Post(body=form.post.data, img=docname, title=form.title.data, author=current_user)
+            # print("Got an image")
+            file = form.image.data
+            output = upload_file_to_s3(file)
+            s3path = os.environ.get('AWS_DOMAIN')+output
+            # print(s3path)
+            post = Post(body=form.post.data, img=s3path, title=form.title.data, author=current_user)
             db.session.add(post)
             db.session.commit()
             flash('Your post is now live!')

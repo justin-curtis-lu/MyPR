@@ -34,23 +34,6 @@
     <br>
     {% endif %}
 
-    <h1>Upload Your Files Bro</h1>
-
-<!--    Conflicts with explore page-->
-    <form action="/trigger" method="POST" enctype="multipart/form-data">
-        {{ form.csrf_token }}
-        <label for="user_file">Upload Your File</label>
-        <br></br>
-        <input type="file" name="user_file">
-        <br></br>
-        <button type="submit">Upload</button>
-
-    </form>
-
-    <img src="https://mypr-images.s3.amazonaws.com/IMG_6497.jpg" alt="User's Image" width="400" height="400">
-
-
-
     {% for post in posts %}
         {% include '_post.html' %}
     {% endfor %}
