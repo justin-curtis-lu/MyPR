@@ -17,17 +17,17 @@
                             {{ post.body }}
                         </div>
                         <div class="col-sm">
-
 <!--                Case 1: No File provided for post-->
                 {% if post.img == "None" %}
 <!--                Case 2: Png or Jpg provided for post-->
                 {% elif post.img[-3:] == "jpg" or post.img[-3:] == "png" %}
                         <img src="{{ post.img }}" alt="User's Media Content" width="400" height="400">
-<!--                Case 3: Video provided for post-->
-                {% else %}
-                    <video width="400" height="400" controls autoplay>
-                            <source src="{{ post.img }}" type="video/mp4" alt="User's Video">
-                    </video>
+<!--                Case 3: Mp4 Video provided for post-->
+                {% elif post.img[-3:] == "mp4" %}
+                    <video width="400" height="400" controls>
+                         <source src="{{ post.img }}" type="video/mp4" alt="User's Video">
+                   </video>
+<!--                Case 4: MOV: Disable for now, too large -->
                 {% endif %}
                     </div>
             </td>

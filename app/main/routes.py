@@ -15,9 +15,6 @@ import os
 
 import boto3, botocore
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in current_app.config['ALLOWED_EXTENSIONS']
 
 s3 = boto3.client(
     "s3",
@@ -25,71 +22,36 @@ s3 = boto3.client(
     aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
 )
 
+import secrets
+import string
+
+def get_random_string(length):
+    secure_str = ''.join((secrets.choice(string.ascii_letters) for i in range(length)))
+    return secure_str
 
 def upload_file_to_s3(file, acl="public-read"):
     filename = secure_filename(file.filename)
+    prefix = get_random_string(25)
+    finalName = prefix+file.filename[-4:]
+
     try:
         s3.upload_fileobj(
             file,
             os.getenv("AWS_BUCKET_NAME"),
-            file.filename,
+            finalName,
             ExtraArgs={
                 "ACL": acl,
                 "ContentType": file.content_type
             }
         )
 
-    except Exception as e:
+    except Exception as error:
         # This is a catch all exception, edit this part to fit your needs.
-        print("Something Happened: ", e)
-        return e
+        print("Something Happened: ", error)
+        return error
 
     # after upload file to s3 bucket, return filename of the uploaded file
-    return file.filename
-
-
-# @bp.route("/trigger", methods=["POST"])
-# def create():
-#     # check whether an input field with name 'user_file' exist
-#     if 'user_file' not in request.files:
-#         flash('No user_file key in request.files')
-#         return redirect(url_for('new'))
-#
-#     # after confirm 'user_file' exist, get the file from input
-#     file = request.files['user_file']
-#     print("this is non form way")
-#     print(file)
-#     print(type(file))
-#
-#
-#     # check whether a file is selected
-#     if file.filename == '':
-#         flash('No selected file')
-#         return redirect(url_for('new'))
-#
-#     # check whether the file extension is allowed (eg. png,jpeg,jpg,gif)
-#     if file and allowed_file(file.filename):
-#         output = upload_file_to_s3(file)
-#
-#         # if upload success,will return file name of uploaded file
-#         if output:
-#             # write your code here
-#             # to save the file name in database
-#
-#             flash("Success upload")
-#             print(output)
-#             return redirect(url_for('main.index'))
-#
-#         # upload failed, redirect to upload page
-#         else:
-#             flash("Unable to upload, try again")
-#             return redirect(url_for('new'))
-#
-#     # if file extension not allowed
-#     else:
-#         flash("File type not accepted,please try again.")
-#         return redirect(url_for('new'))
-
+    return finalName
 
 
 @bp.route('/favicon.ico')
@@ -103,27 +65,26 @@ def favicon():
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        # print("this is the form way")
-        # print(form.image.data)
-        # print(type(form.image.data))
         if form.image.data == None:
-            # print(" Didnt get an image")
             post = Post(body=form.post.data, img="None", title=form.title.data, author=current_user)
             db.session.add(post)
             db.session.commit()
             flash('Your post is now live!')
             return redirect(url_for('main.index'))
         else:
-            # print("Got an image")
             file = form.image.data
             output = upload_file_to_s3(file)
-            s3path = os.environ.get('AWS_DOMAIN')+output
-            # print(s3path)
-            post = Post(body=form.post.data, img=s3path, title=form.title.data, author=current_user)
-            db.session.add(post)
-            db.session.commit()
-            flash('Your post is now live!')
-            return redirect(url_for('main.index'))
+            if output:
+                # Need to error check on bad output, and re reroute
+                s3path = os.environ.get('AWS_DOMAIN')+output
+                post = Post(body=form.post.data, img=s3path, title=form.title.data, author=current_user)
+                db.session.add(post)
+                db.session.commit()
+                flash('Your post is now live!')
+                return redirect(url_for('main.index'))
+            else:
+                flash('Upload Failed!')
+                return redirect(url_for('main.index'))
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
         page, current_app.config['POSTS_PER_PAGE'], False)
@@ -158,10 +119,6 @@ def user(username):
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
         page, current_app.config['POSTS_PER_PAGE'], False)
-    for post in user.posts:
-        print(post.img)
-        print(post.title)
-        print(post.body)
     next_url = url_for('main.user', username=user.username,
                        page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.user', username=user.username,
