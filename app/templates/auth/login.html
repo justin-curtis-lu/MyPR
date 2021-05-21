@@ -1,7 +1,25 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <h1>Sign In</h1>
+<head>
+<style>
+body {
+  background-image: url('../static/landing2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 2500px;
+}
+img {
+  opacity: 0.5;
+}
+</style>
+</head>
+
+<br>
+<br>
+<div class="card left ">
+    <h5 class="card-header">Sign In</h5>
+    <div class="card-body">
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
@@ -26,4 +44,9 @@
         Forgot Your Password?
         <a href="{{ url_for('auth.reset_password_request') }}">Click to Reset It</a>
     </p>
+</div>
+</div>
+
+
+
 {% endblock %}

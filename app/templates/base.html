@@ -12,7 +12,7 @@
     </title>
   </head>
 
-
+<body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <div class="navbar-header">
@@ -92,11 +92,16 @@
     </div>
 {% endblock %}
 
-<footer class="footer mt-auto py-3 bg-light">
+{% block footer %}
+<footer class="footer mt-auto py-3 ">
   <div class="container">
-    <span class="text-muted">Copyright &copy; 2021 Justin Lu</span>
+    <span class="custom">Copyright &copy; 2021 Justin Lu</span>
   </div>
 </footer>
+{% endblock %}
+
+</body>
+
 
 {% block scripts %}
     {{ moment.include_jquery() }}

@@ -10,3 +10,16 @@ body {
   height: 180px;
   clear: both;
 }
+
+.left {
+    width: 20rem;
+}
+
+#navigation,.navbar .navbar-default{
+  background-image: url("img/landing.jpg");
+}
+
+.custom{
+    color:black;
+    margin-left: 10px;
+}

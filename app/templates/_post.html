@@ -7,11 +7,9 @@
             </td>
             <td>
 
-            <span class="user_popup">
                 <a href="{{ url_for('main.user', username=post.author.username) }}">
                     {{ post.author.username }}
                 </a>
-            </span>
                 <p> posted {{ moment(post.timestamp).fromNow() }}: </p>
 
                 <h1> {{ post.title}} </h1>
