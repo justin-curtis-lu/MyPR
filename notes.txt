@@ -25,3 +25,5 @@ rely less on dependency of wtforms
 
 
 user images dont show for user html but show for index html -> connectiom for dbs
+
+add date to post
