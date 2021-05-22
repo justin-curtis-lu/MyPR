@@ -2,21 +2,21 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
+    <br>
     <h1>Hi, {{ current_user.username }}!</h1>
     {% if form %}
-<!--    {{ wtf.quick_form(form) }}-->
     <form action="" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
             {{ form.title.label }}<br>
-            {{ form.title(cols=32, rows=4) }}<br>
+            {{ form.title(cols=40, rows=3) }}<br>
             {% for error in form.title.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.post.label }}<br>
-            {{ form.post(cols=32, rows=4) }}<br>
+            {{ form.post(cols=150, rows=4) }}<br>
             {% for error in form.post.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
@@ -34,9 +34,11 @@
     <br>
     {% endif %}
 
+    <br>
     {% for post in posts %}
         {% include '_post.html' %}
     {% endfor %}
+
 
     <nav aria-label="...">
         <ul class="pager">

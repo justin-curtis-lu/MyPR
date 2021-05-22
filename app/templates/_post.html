@@ -1,40 +1,37 @@
-<table class="table table-hover">
-        <tr>
-            <td width="70px">
-                <a href="{{ url_for('main.user', username=post.author.username) }}">
-                    <img src="{{ post.author.avatar(70) }}" />
-                </a>
-            </td>
-            <td>
-
-                <a href="{{ url_for('main.user', username=post.author.username) }}">
+ <div class="card border-dark mb-3 text-center center" style="width: 60rem;">
+        <div class="card-header">
+            <a href="{{ url_for('main.user', username=post.author.username) }}">
                     {{ post.author.username }}
-                </a>
-                <p> posted {{ moment(post.timestamp).fromNow() }}: </p>
-
-                <h1> {{ post.title}} </h1>
-
-                <div class="container">
-                    <div class="row special">
-                        <div class="col-sm">
-                            {{ post.body }}
-                        </div>
-                        <div class="col-sm">
+            </a>
+            <br>
+            <a href="{{ url_for('main.user', username=post.author.username) }}">
+                <img src="{{ post.author.avatar(70) }}" />
+            </a>
+        </div>
+        <div class="card-body">
+            <!--Title-->
+            <h5 class="card-title"> {{ post.title}} </h5>
+            <!--Body-->
+            <p class="card-text"> {{ post.body }} </p>
+            <!--Media Content-->
 <!--                Case 1: No File provided for post-->
-                {% if post.img == "None" %}
+            {% if post.img == "None" %}
 <!--                Case 2: Png or Jpg provided for post-->
-                {% elif post.img[-3:] == "jpg" or post.img[-3:] == "png" %}
-                        <img src="{{ post.img }}" alt="User's Media Content" width="400" height="400">
+            {% elif post.img[-3:] == "jpg" or post.img[-3:] == "png" %}
+                <img src="{{ post.img }}" alt="User's Media Content" width="400" height="400">
 <!--                Case 3: Mp4 Video provided for post-->
-                {% elif post.img[-3:] == "mp4" %}
-                    <video width="400" height="400" controls>
-                         <source src="{{ post.img }}" type="video/mp4" alt="User's Video">
-                   </video>
+            {% elif post.img[-3:] == "mp4" %}
+                <video width="400" height="400" controls>
+                    <source src="{{ post.img }}" type="video/mp4" alt="User's Video">
+                </video>
 <!--                Case 4: MOV: Disable for now, too large -->
                 {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-</table>
+            </div>
+        <div class="card-footer text-muted">
+            {{ moment(post.timestamp).fromNow() }}
+        </div>
+    </div>
+
+
+<br>
+<br>
