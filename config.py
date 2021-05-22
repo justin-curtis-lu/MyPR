@@ -21,3 +21,4 @@ class Config(object):
     ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
     POSTS_PER_PAGE = 5
     MAX_CONTENT_LENGTH = 20 * 1024 * 1024
+    LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')

@@ -6,11 +6,6 @@ from markupsafe import Markup
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 
 
-# def get_random_string(length):
-#     # Random string with the combination of lower and upper case
-#     letters = string.ascii_letters
-#     return ''.join(random.choice(letters) for i in range(length))
-
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
 
