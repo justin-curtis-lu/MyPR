@@ -4,6 +4,19 @@
     <list default="true" id="654f088e-f398-4a89-acf9-eb8828ac4d2d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/alembic.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/script.py.mako" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/16bab3ae886e_title_for_posts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/3def08c282f6_.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/591281ded95d_img_for_posts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/990eb95516de_disable_img.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/aca696777a61_new_fields_in_user_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/bcacf044a2d2_posts_table.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/d141bcd8a923_users_table.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/d18e48db2701_title_for_posts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/fe9710af6d8f_followers.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
