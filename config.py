@@ -13,6 +13,7 @@ class Config(object):
     #                           'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_DATABASE_URI = (os.environ.get("DATABASE_URL") + "?sslmode=require").replace("postgres://", "postgresql://", 1) or \
                               'sqlite:///' + os.path.join(basedir,'app.db')
+    print(SQLALCHEMY_DATABASE_URI)
     # SQLALCHEMY_DATABASE_URI = (os.environ.get("DATABASE_URL") + "?sslmode=require") or \
     #                               "sqlite: // / " + os.path.join(basedir, "app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
