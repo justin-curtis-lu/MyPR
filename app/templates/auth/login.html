@@ -1,48 +1,40 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-<head>
-<style>
-body {
-  background-image: url('../static/landing2.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 2500px;
-}
-</style>
-</head>
 
 <br>
 <br>
-<div class="card left ">
-    <h5 class="card-header">Sign In</h5>
+<p class="text-center bigger" > Log In </p>
+<p class="special text-center"> Welcome to MyPR! <p>
+<div class="card center" style="width: 24rem;">
     <div class="card-body">
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <p>
+        <p class="special">
             {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
+            {{ form.username(size=48) }}<br>
             {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
+        <p class="special">
             {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
+            {{ form.password(size=48) }}<br>
             {% for error in form.password.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
+        <p class="special">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p class="text-center special">{{ form.submit() }}</p>
     </form>
-    <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
-    <p>
+    <p class="special2 space text-center ">New User? <a href="{{ url_for('auth.register') }}" class="special2 text-center">Click to Register!</a></p>
+    <p class="special2 text-center">
         Forgot Your Password?
-        <a href="{{ url_for('auth.reset_password_request') }}">Click to Reset It</a>
+        <a href="{{ url_for('auth.reset_password_request') }}" class="special2 text-center">Click to Reset It</a>
     </p>
 </div>
 </div>
+<br>
 
 
 
