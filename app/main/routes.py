@@ -60,6 +60,10 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @bp.route('/', methods=['GET', 'POST'])
+@bp.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html', title='About')
+
 @bp.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
@@ -192,7 +196,4 @@ def unfollow(username):
         return redirect(url_for('main.index'))
 
 
-@bp.route('/about', methods=['GET'])
-def about():
-    return render_template('about.html', title='About')
 
