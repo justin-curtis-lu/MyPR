@@ -23,7 +23,7 @@ body {
 }
 
 .black {
-    color: black;
+    color: solid black;
 }
 
 .bigger {
@@ -42,4 +42,8 @@ body {
 
 .space {
   margin-top: 20px;
+}
+
+.navbar {
+    border-bottom: 1px solid black;
 }

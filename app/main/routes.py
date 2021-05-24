@@ -191,7 +191,8 @@ def unfollow(username):
     else:
         return redirect(url_for('main.index'))
 
-@bp.route('/contact', methods=['GET', 'POST'])
-def contact():
-    return render_template('contact.html', title='Contact Us')
+
+@bp.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html', title='About')
 

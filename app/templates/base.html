@@ -13,28 +13,28 @@
   </head>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <div class="navbar-header">
-                <div class="navbar-brand" >
+                <a class="navbar-brand"href="{{ url_for('main.about') }}" >
                     My
                     <img src="{{url_for('static', filename='logo.png')}}" width="30" height="30" class="d-inline-block align-top" alt="">
-                </div>
+                </a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a class="nav-link" href="{{ url_for('main.index') }}">Home</a></li>
-                    <li><a class="nav-link" href="{{ url_for('main.explore') }}">Explore</a></li>
+                    <li class="nav-item active"><a class="nav-link black" href="{{ url_for('main.index') }}">Home</a></li>
+                    <li class="nav-item active"><a class="nav-link black" href="{{ url_for('main.explore') }}">Explore</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a class="nav-link" data-toggle="modal" data-target="#ContactUs" href="#"> Contact Us</a>
+                    <li class="nav-item active">
+                        <a class="nav-link black" data-toggle="modal" data-target="#ContactUs" href="#"> Contact Us</a>
                         <!-- Modal 1 -->
                         <div class="modal fade " id="ContactUs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                           <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                               <div class="modal-header  ">
-                                <h5 class="modal-title w-100 text-center" >
+                                <h5 class="modal-title w-100 text-center black" >
                                     Contact Us
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
@@ -66,10 +66,10 @@
                         </div>
                     </li>
                     {% if current_user.is_anonymous %}
-                    <li><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
                     {% else %}
-                    <li><a class="nav-link" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
-                    <li><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% endif %}
                 </ul>
             </div>
