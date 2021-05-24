@@ -57,7 +57,7 @@ def upload_file_to_s3(file, acl="public-read"):
 @bp.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(current_app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+                               'favicon-32x32.png', mimetype='image/vnd.microsoft.icon')
 
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/about', methods=['GET'])
