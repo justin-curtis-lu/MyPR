@@ -2,14 +2,40 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-    <h1>Edit Profile</h1>
-    <i> To change profile picture, please visit <a href="https://gravatar.com/" target="_blank"> here </a>
+
+
+<br>
+<br>
+<div class="text-center center">
+<p class="bigger" > Edit Your Profile </p>
+<i class="special"> To change profile picture, please visit <a href="https://gravatar.com/" target="_blank"> here </a>
     and follow the instructions to set up your Gravatar profile picture</i>
-    <br>
-    <br>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
+<br>
+<br>
+<div class="card center text-center" style="width: 30rem;">
+    <div class="card-body">
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+            <p class="special">
+            {{ form.username.label }}<br>
+            {{ form.username(size=40) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p class="special">
+            {{ form.about_me.label }}<br>
+            {{ form.about_me(cols=50, rows=6)  }}<br>
+            {% for error in form.about_me.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p class="text-center special">{{ form.submit() }}</p>
+        </form>
         </div>
     </div>
+</div>
+</div>
 {% endblock %}

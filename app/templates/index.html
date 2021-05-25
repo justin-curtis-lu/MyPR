@@ -3,7 +3,7 @@
 
 {% block app_content %}
     <br>
-    <h1>Hi, {{ current_user.username }}!</h1>
+    <p class="capture">Hi, {{ current_user.username }}!</p>
     {% if form %}
     <form action="" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
