@@ -8,7 +8,10 @@ Web application allows users to share their favorite weight lifting / sports rel
 
 ### Currently
 
-CSS, implement Full-Text Search, admin roles, and possibly RQ
+- Overall CSS
+- ElasticSearch for full text search
+- Replacing Flask-Mail with Twilio SendGrid
+- Redis for background tasks
 
 ## Built With
 
