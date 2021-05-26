@@ -1,29 +1,3 @@
-When allowing users to upload content, going to need to use WTForms with file uploading
-Need to make sure uploads are validated -> expected size, and valid file format
-Consider S3 Bucket for file storing
-
-Change from SQLalchemy to server side Db for production
-
-Bootstrap for CSS styling
-
-
-Create email account for password resetting
-
-
-Reading images from filesystem, for deployment read from S3 bucket
-
-Please log in to access this page rendering incorrectly -> consider having contact as a pop up using js
-
-functionality for displaying all followers -> probably have to use pagination if want to consider
-either a modal or new html page that just list clickable links to all users
-
-multiple images, videos, gifs
-
-secure hashing of img name
-
-rely less on dependency of wtforms
-
-
-user images dont show for user html but show for index html -> connectiom for dbs
-
-add date to post
+ToDo
+Front End: CSS
+Back End: Elastic Search + Twilio Send Grid (Replace FlaskMail)

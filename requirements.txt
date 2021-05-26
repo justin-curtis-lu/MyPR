@@ -4,11 +4,13 @@ Babel==2.9.1
 blinker==1.4
 boto3==1.17.73
 botocore==1.20.73
+certifi==2020.12.5
 click==8.0.0
 colorama==0.4.3
 dnspython==2.1.0
 docutils==0.15.2
 dominate==2.6.0
+elasticsearch==7.13.0
 email-validator==1.1.2
 Flask==2.0.0
 Flask-Babel==2.0.0
