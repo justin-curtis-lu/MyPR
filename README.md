@@ -2,13 +2,18 @@
 
 https://my-pr.herokuapp.com/
 
+It may take 10-20 seconds to load if the app is asleep as I am running the app under the Heroku free plan, which sleeps when no traffic goes through for 1 hour
+
 Web application allows users to share their favorite weight lifting / sports related PRs and other fitness related content with their friends. 
 
 ![Image](assets/pr.gif)
 
 ### Currently
 
-CSS, implement Full-Text Search, admin roles, and possibly RQ
+- Overall CSS
+- ElasticSearch for full text search
+- Replacing Flask-Mail with Twilio SendGrid
+- Redis for background tasks
 
 ## Built With
 
