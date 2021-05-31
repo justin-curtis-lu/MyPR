@@ -14,6 +14,7 @@ Web application allows users to share their favorite weight lifting / sports rel
 - ElasticSearch for full text search
 - Replacing Flask-Mail with Twilio SendGrid
 - Redis for background tasks
+- Any relevant REST APIs
 
 ## Built With
 
