@@ -53,6 +53,15 @@ def upload_file_to_s3(file, acl="public-read"):
     # after upload file to s3 bucket, return filename of the uploaded file
     return finalName
 
+from flask import g
+from app.main.forms import SearchForm
+
+@bp.before_app_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
+        g.search_form = SearchForm()
 
 @bp.route('/favicon.ico')
 def favicon():
