@@ -1,12 +1,14 @@
 # MyPR
 
-https://my-pr.herokuapp.com/
-
-It may take 10-20 seconds to load if the app is asleep as I am running the app under the Heroku free plan, which sleeps when no traffic goes through for 1 hour
-
 Web application allows users to share their favorite weight lifting / sports related PRs and other fitness related content with their friends. 
 
-![Image](assets/pr.gif)
+Click [here](https://my-pr.herokuapp.com/) to view app
+
+
+
+
+
+
 
 ### Currently
 
@@ -15,7 +17,7 @@ Web application allows users to share their favorite weight lifting / sports rel
 - Redis for background tasks
 - Any relevant REST APIs
 
-## Built With
+### Built With
 
 * [Heroku](https://dashboard.heroku.com/apps) - Platform
 * [Flask](https://het.as.utexas.edu/HET/Software/PyQt/qtsql.html) - Micro Framework (WTForms, Flask-Bootstrap, Flask-Mail, Flask-Login, ...)
