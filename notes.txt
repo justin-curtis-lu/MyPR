@@ -3,4 +3,6 @@ Front End: CSS
 Back End: Elastic Search + Twilio Send Grid (Replace FlaskMail)
 
 
-- Download Elastic Search locally  + Error checking on post title and body size
+Error checking on post title and body size
+
+Elastic Search on deployment only working for posts created after integration -> do a hard reset on final production
