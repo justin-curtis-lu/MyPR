@@ -6,3 +6,5 @@ Back End: Elastic Search + Twilio Send Grid (Replace FlaskMail)
 Error checking on post title and body size
 
 Elastic Search on deployment only working for posts created after integration -> do a hard reset on final production
+
+Expand on post page + seperate posting page from showing posts (ie: make_post.html) and route to posts on successful post
