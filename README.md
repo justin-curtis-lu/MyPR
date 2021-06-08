@@ -11,7 +11,6 @@ Web application allows users to share their favorite weight lifting / sports rel
 ### Currently
 
 - Overall CSS
-- ElasticSearch for full text search
 - Replacing Flask-Mail with Twilio SendGrid
 - Redis for background tasks
 - Any relevant REST APIs
@@ -22,3 +21,4 @@ Web application allows users to share their favorite weight lifting / sports rel
 * [Flask](https://het.as.utexas.edu/HET/Software/PyQt/qtsql.html) - Micro Framework (WTForms, Flask-Bootstrap, Flask-Mail, Flask-Login, ...)
 * [Amazon S3](https://aws.amazon.com/s3/) - Media Storage
 * [PostgreSQL](https://www.postgresql.org/) - Database
+* [Elasticsearch](https://www.elastic.co/) - Full text search engine (Provided by [SearchBox](https://devcenter.heroku.com/articles/searchbox) )
