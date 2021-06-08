@@ -9,6 +9,9 @@ body {
     width: 20rem;
 }
 
+.mod {
+    margin-top: 2px;
+}
 .center {
     margin: auto;
     width: 60%;

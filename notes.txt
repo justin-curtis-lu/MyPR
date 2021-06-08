@@ -3,4 +3,4 @@ Front End: CSS
 Back End: Elastic Search + Twilio Send Grid (Replace FlaskMail)
 
 
-- Download Elastic Search locally  + Error checking on post titel and body size
+- Download Elastic Search locally  + Error checking on post title and body size
