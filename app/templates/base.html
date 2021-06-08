@@ -30,7 +30,11 @@
                     <li class="nav-item active"><a class="nav-link black" href="{{ url_for('main.explore') }}">Explore</a></li>
                 </ul>
 
-                {% if g.search_form %}
+
+
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        {% if g.search_form %}
 
                <form class="form-inline" method="get" action="{{ url_for('main.search') }}">
                         {{ g.search_form.q(size=20, class='form-control mr-sm-2',
@@ -39,10 +43,9 @@
                 </form>
 
                 {% endif %}
-
-                <ul class="nav navbar-nav ml-auto">
+                    </li>
                     <li class="nav-item active">
-                        <a class="nav-link black" data-toggle="modal" data-target="#ContactUs" href="#"> Contact Us</a>
+                        <a class="nav-link black" data-toggle="modal" data-target="#ContactUs" href="#"> Contact</a>
                         <!-- Modal 1 -->
                         <div class="modal fade " id="ContactUs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                           <div class="modal-dialog modal-lg" role="document">
